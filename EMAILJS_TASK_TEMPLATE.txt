@@ -1,0 +1,148 @@
+CityFix Worker Task Assignment
+
+To Email field:
+{{to_email}}
+
+Subject:
+New CityFix Task Assigned | {{priority}} Priority
+
+Content type:
+HTML
+
+HTML body:
+<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#f4f7fb;font-family:Segoe UI,Arial,sans-serif;color:#1f2937;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7fb;padding:24px 0;">
+      <tr>
+        <td align="center">
+          <table width="680" cellpadding="0" cellspacing="0" style="max-width:680px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+            <tr>
+              <td style="background:#0f766e;color:#ffffff;padding:18px 24px;">
+                <h2 style="margin:0;font-size:20px;">CityFix Task Assignment</h2>
+                <p style="margin:6px 0 0 0;font-size:13px;opacity:.95;">A new civic issue has been assigned</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:20px 24px 4px 24px;">
+                <p style="margin:0 0 12px 0;font-size:15px;">Hello {{to_name}},</p>
+                <p style="margin:0 0 14px 0;font-size:14px;line-height:1.6;">
+                  You have been assigned a new task from the CityFix Authority Dashboard.
+                  Please review the details below and begin action.
+                </p>
+                <p style="margin:0 0 14px 0;font-size:13px;line-height:1.6;color:#0f766e;font-weight:600;">
+                  Tip: Click the Location link below to open Google Maps navigation.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 24px 8px 24px;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Priority</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{priority}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Category</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_category}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Severity</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_severity}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Location</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">
+                      <a href="{{issue_maps_link}}" style="color:#0f766e;text-decoration:none;">{{issue_location_name}}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Full Location</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_location_full}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Area</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_area}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Coordinates</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_latitude}}, {{issue_longitude}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Map Link</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">
+                      <a href="{{issue_maps_link}}" style="color:#0f766e;text-decoration:none;">Open Location on Map</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Reported By</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_reported_by}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Current Status</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_status}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Reported At</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{issue_created_at}}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;font-weight:600;">Assigned At</td>
+                    <td style="padding:10px;border-bottom:1px solid #eef2f7;">{{assigned_at}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:8px 24px 4px 24px;">
+                <h3 style="margin:12px 0 8px 0;font-size:15px;">Issue Description</h3>
+                <p style="margin:0;font-size:14px;line-height:1.7;background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+                  {{issue_description}}
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:8px 24px 20px 24px;">
+                <h3 style="margin:12px 0 8px 0;font-size:15px;">AI Summary</h3>
+                <p style="margin:0;font-size:14px;line-height:1.7;background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+                  {{issue_summary}}
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="background:#f9fafb;border-top:1px solid #e5e7eb;padding:14px 24px;">
+                <p style="margin:0;font-size:12px;color:#6b7280;">
+                  CityFix Authority Team
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+Variables this template uses:
+1. to_email
+2. to_name
+3. priority
+4. assigned_at
+5. issue_description
+6. issue_category
+7. issue_severity
+8. issue_location_name
+9. issue_area
+10. issue_location_full
+11. issue_latitude
+12. issue_longitude
+13. issue_maps_link
+14. issue_reported_by
+15. issue_status
+16. issue_created_at
+17. issue_summary
