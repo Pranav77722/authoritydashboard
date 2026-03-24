@@ -29,18 +29,41 @@ if (hasFirebaseConfig) {
   auth = getAuth(app);
   db = getFirestore(app);
 
-  // Create a promise that resolves when user is authenticated
-  authReadyPromise = new Promise((resolve) => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+  // Resolve when auth is ready, but fail fast on auth errors to avoid silent loading hangs.
+  authReadyPromise = new Promise((resolve, reject) => {
+    let settled = false;
+    let unsubscribe = null;
+
+    const doneResolve = (user) => {
+      if (settled) return;
+      settled = true;
+      if (unsubscribe) unsubscribe();
+      clearTimeout(timeoutId);
+      resolve(user);
+    };
+
+    const doneReject = (error) => {
+      if (settled) return;
+      settled = true;
+      if (unsubscribe) unsubscribe();
+      clearTimeout(timeoutId);
+      reject(error);
+    };
+
+    unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        unsubscribe();
-        resolve(user);
+        doneResolve(user);
       }
     });
-    
-    // Sign in anonymously if not already signed in
+
+    const timeoutId = setTimeout(() => {
+      doneReject(new Error('Firebase auth timed out. Check Anonymous Auth and Vercel environment variables.'));
+    }, 10000);
+
+    // Sign in anonymously if not already signed in.
     signInAnonymously(auth).catch((error) => {
       console.error('Anonymous auth failed:', error);
+      doneReject(new Error(`Anonymous auth failed: ${error.message}`));
     });
   });
 }
